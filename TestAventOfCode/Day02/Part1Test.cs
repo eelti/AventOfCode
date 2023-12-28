@@ -31,5 +31,16 @@ public class Part1Test
         var result = cube.SolveCube();
         // Assert
         Assert.AreEqual(8, result);
+    }  
+    [Test]
+    public void SumAllPossibleGameV2()
+    {
+        // Arrange
+        var cube = new CubeConundrum(Input.GameData, CubeSet );
+        cube.ImportInput();
+        // Act
+        var result = cube.SolveCube2();
+        // Assert
+        Assert.AreEqual(8, result);
     }
 }
