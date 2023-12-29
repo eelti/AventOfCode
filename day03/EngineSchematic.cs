@@ -1,60 +1,91 @@
-﻿namespace day03;
+﻿using System.Collections;
+using System.Text.RegularExpressions;
 
-public class EngineSchematic
+namespace day03;
+
+public class EngineSchematic(string[] gameData)
 {
-    public EngineSchematic(int lineLen, int numberOfLines)
+    private readonly string[] _gameData = gameData;
+    private IEnumerable<Number> _numbers;
+    private IEnumerable<Symbol> _symbols;
+    private List<int> _valideNumbers;
+    private List<Tuple<int, int>> _gearsPairs;
+
+    public List<Number> GetNumbers()
     {
-        LineLen = lineLen;
-        NumberOfLines = numberOfLines;
-        Numbers = new List<Number>();
-        Symbols = new List<Symbol>();
+        _numbers = _gameData.SelectMany((line, index) =>
+            Regex.Matches(line, @"\d+").Select(match => new Number(int.Parse(match.Value), index, match.Index)));
+        return _numbers.ToList();
     }
 
-    public int LineLen { get; private set; }
-    public int NumberOfLines { get; private set; }
-    public List<Number> Numbers { get; set; }
-    public List<Symbol> Symbols { get; set; }
-}
-
-public class Number(int value, int rowNumber, int index)
-{
-    public int Value { get; set; } = value;
-    public int RowNumber { get; set; } = rowNumber;
-    public int Index { get; set; } = index;
-
-
-    public override bool Equals(object obj)
+    public List<Symbol> GetSymbols(string pattern)
     {
-        if (obj == null || GetType() != obj.GetType())
-            return false;
-
-        var number = (Number)obj;
-        return Value == number.Value && RowNumber == number.RowNumber && Index == number.Index;
+        _symbols = _gameData.SelectMany((line, index) =>
+           // Regex.Matches(line, @"[^\w\s\d\.]").Select(match => new Symbol(match.Value, index, match.Index)));
+            Regex.Matches(line, pattern).Select(match => new Symbol(match.Value, index, match.Index)));
+        return _symbols.ToList();
     }
 
-    public override int GetHashCode()
+    public List<int> GetValidNumbers()
     {
-        return HashCode.Combine(Value, RowNumber, Index);
+        _valideNumbers = new List<int>();
+        foreach (var number in _numbers)
+        {
+                var canBeBetween = new
+                    { Start = number.Index - 1, End = number.Index + number.Value.ToString().Length };
+                var lineIndexCanBeBetween = new
+                    { Start = number.RowNumber - 1, End = number.RowNumber + 1 };
+                
+                if (_symbols.Any(w => 
+                        w.Index >= canBeBetween.Start &
+                        w.Index <= canBeBetween.End &
+                        w.RowNumber >= lineIndexCanBeBetween.Start &
+                            w.RowNumber <= lineIndexCanBeBetween.End
+                        ))
+                {
+                    _valideNumbers.Add(number.Value);
+                }
+        }
+
+        return _valideNumbers;
     }
-}
-
-public class Symbol(string value, int rowNumber, int index)
-{
-    public string Value { get; set; } = value;
-    public int RowNumber { get; set; } = rowNumber;
-    public int Index { get; set; } = index;
-    
-    public override bool Equals(object obj)
+    public List<Tuple<int, int>> GetGearsPairs()
     {
-        if (obj == null || GetType() != obj.GetType())
-            return false;
+        _gearsPairs = new List<Tuple<int, int>>();
+        foreach (var s in _symbols)
+        {
+            var canBeBetween = new
+                { Start = s.Index - 1, End = s.Index +1 };
+            var lineIndexCanBeBetween = new
+                { Start = s.RowNumber - 1, End = s.RowNumber + 1 };
+            var numbers = _numbers.Where(w => 
+                (w.Index >= canBeBetween.Start || w.IndexEnd >= canBeBetween.Start) &
+                (w.Index <= canBeBetween.End || w.IndexEnd <= canBeBetween.End) &
+                w.RowNumber >= lineIndexCanBeBetween.Start &
+                w.RowNumber <= lineIndexCanBeBetween.End
+            ).ToList();
+            if (numbers.Count != 0 & numbers.Count == 2)
+            {
+                _gearsPairs.Add(new Tuple<int, int>(numbers.Select(e => e.Value).ToArray()[0],numbers.Select(e => e.Value).ToArray()[1] ));
+            }
+        }
 
-        var symbol = (Symbol)obj;
-        return Value == symbol.Value && RowNumber == symbol.RowNumber && Index == symbol.Index;
+        return _gearsPairs;
     }
 
-    public override int GetHashCode()
+    public int GetSumOfAllValidNumbers()
     {
-        return HashCode.Combine(Value, RowNumber, Index);
+        return _valideNumbers.Sum();
+    }
+
+    public int GetSumOfAllGearRatio()
+    {
+        var sum = 0;
+        foreach (var kp in _gearsPairs)
+        {
+            sum += (kp.Item1 * kp.Item2);
+        }
+
+        return sum;
     }
 }

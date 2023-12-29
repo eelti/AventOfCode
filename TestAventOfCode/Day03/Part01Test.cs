@@ -3,11 +3,10 @@
 namespace TestAventOfCode.Day03;
 
 [TestFixture]
-[TestOf(typeof(EngineShematicFactory))]
-public class EngineShematicFactoryTest
+public class Part01Test
 {
     private string[] _gameData;
-    private EngineShematicFactory _engineSchematic;
+    private EngineSchematic _engineSchematic;
 
     [SetUp]
     //how to build the setup for nUnit test
@@ -25,7 +24,7 @@ public class EngineShematicFactoryTest
             "...$.*....",
             ".664.598.." 
         };
-        _engineSchematic = new EngineShematicFactory(_gameData);
+        _engineSchematic = new EngineSchematic(_gameData);
     }
     [Test]
     public void GetNumbersAndPosition()
@@ -49,7 +48,7 @@ public class EngineShematicFactoryTest
     [Test]
     public void GetSymbolesAndPosition()
     {
-        var symbols = _engineSchematic.GetSymbols();
+        var symbols = _engineSchematic.GetSymbols(@"[^\w\s\d\.]");
         
         var expected = new List<Symbol>()
         {
@@ -71,7 +70,7 @@ public class EngineShematicFactoryTest
             467, 35, 633, 617, 592, 755, 664, 598
         };
         _engineSchematic.GetNumbers();
-        _engineSchematic.GetSymbols();
+        _engineSchematic.GetSymbols(@"[^\w\s\d\.]");
         var result = _engineSchematic.GetValidNumbers();
 
         CollectionAssert.AreEquivalent(expected, result);
@@ -80,7 +79,7 @@ public class EngineShematicFactoryTest
     public void GetGetSumOfAllValidNumber()
     {
         _engineSchematic.GetNumbers();
-        _engineSchematic.GetSymbols();
+        _engineSchematic.GetSymbols(@"[^\w\s\d\.]");
         _engineSchematic.GetValidNumbers();
         var result = _engineSchematic.GetSumOfAllValidNumbers();
 
