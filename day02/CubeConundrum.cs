@@ -4,10 +4,9 @@ namespace day02;
 
 public class CubeConundrum
 {
-    public string[] _input;
     private readonly Dictionary<string, int> _cubeSet;
-    private string[] _cubeColor ={ "red", "green", "blue" };
-    public List<Game> Games { get; set; }
+    private readonly string[] _cubeColor = { "red", "green", "blue" };
+    public string[] _input;
 
     public CubeConundrum(string[] input, Dictionary<string, int> cubeSet)
     {
@@ -17,12 +16,14 @@ public class CubeConundrum
         CleanInput();
     }
 
+    public List<Game> Games { get; set; }
+
     public void ImportInput()
     {
         var gameNumber = 1;
         foreach (var item in _input)
         {
-            var game = new Game()
+            var game = new Game
             {
                 GameNumber = gameNumber++,
                 IsValid = true
@@ -35,26 +36,27 @@ public class CubeConundrum
                 var cubes = set.Split(',');
                 foreach (var cube in cubes)
                 {
-                    Regex regex = new Regex(@"(\b[a-zA-Z]+\b)$");
-                    Match match = regex.Match(cube);
-                    Regex regexQ = new Regex(@"\d+");
-                    Match matchQ = regexQ.Match(cube);
+                    var regex = new Regex(@"(\b[a-zA-Z]+\b)$");
+                    var match = regex.Match(cube);
+                    var regexQ = new Regex(@"\d+");
+                    var matchQ = regexQ.Match(cube);
                     var maxValue = int.Parse(_cubeSet[match.Value].ToString());
-                    var cube1 = new Cube()
+                    var cube1 = new Cube
                     {
                         Color = match.Value,
-                        Qty =  int.Parse(matchQ.Value)
+                        Qty = int.Parse(matchQ.Value)
                     };
                     set1.Cubes.Add(cube1);
                     if (cube1.Qty > maxValue) game.IsValid = false;
                 }
+
                 game.Sets.Add(set1);
             }
+
             Games.Add(game);
         }
-
     }
-    
+
     public void CleanInput()
     {
         //for each array in _input use regex replace Game [0-999]: 
@@ -74,8 +76,8 @@ public class CubeConundrum
                 var cubes = set.Split(',');
                 foreach (var cube in cubes)
                 {
-                    Regex regex = new Regex(@"(\b[a-zA-Z]+\b)$");
-                    Match match = regex.Match(cube);
+                    var regex = new Regex(@"(\b[a-zA-Z]+\b)$");
+                    var match = regex.Match(cube);
                     var maxValue = int.Parse(_cubeSet[match.Value].ToString());
                     regex = new Regex(@"\d+");
                     match = regex.Match(cube);
@@ -86,25 +88,26 @@ public class CubeConundrum
                         break;
                     }
                 }
+
                 if (!isValid) break;
             }
-            if(isValid) games.Add(gameNumber);
+
+            if (isValid) games.Add(gameNumber);
             gameNumber++;
         }
 
         return games;
     }
+
     public int SolveCube()
     {
         var possibleGames = GetPossibleGames();
         var sumAllPossibleGame = 0;
-        foreach (var possibleGame in possibleGames)
-        {
-            sumAllPossibleGame += possibleGame;
-        }
+        foreach (var possibleGame in possibleGames) sumAllPossibleGame += possibleGame;
 
         return sumAllPossibleGame;
     }
+
     public int SolveCube2()
     {
         var possibleGames = Games.Where(g => g.IsValid);
@@ -125,6 +128,7 @@ public class CubeConundrum
             var maxQtyCube = set1Cubes.MaxBy(c => c.MaxQty);
             if (maxQtyCube != null) minimumCube.Add(maxQtyCube.Color, maxQtyCube.MaxQty);
         }
+
         return minimumCube;
     }
 

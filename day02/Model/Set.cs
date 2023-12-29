@@ -6,5 +6,6 @@ public class Set
     {
         Cubes = new List<Cube>();
     }
+
     public List<Cube> Cubes { get; set; }
 }

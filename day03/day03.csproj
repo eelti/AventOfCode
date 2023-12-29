@@ -8,13 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="input.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+      <None Update="input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="TextCopy" Version="6.2.1"/>
+      <PackageReference Include="TextCopy" Version="6.2.1" />
     </ItemGroup>
 
 </Project>

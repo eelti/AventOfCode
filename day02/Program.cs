@@ -1,22 +1,23 @@
 ﻿using TextCopy;
 
 namespace day02;
+
 public class Program
 {
-    private static readonly Dictionary<string, int> CubeSet = new Dictionary<string, int>()
+    private static readonly Dictionary<string, int> CubeSet = new()
     {
-        {"red",12},
-        {"green",13},
-        {"blue",14}
+        { "red", 12 },
+        { "green", 13 },
+        { "blue", 14 }
     };
-    
+
     private static void Main()
     {
         var lines = File.ReadAllLines("input.txt");
-        var cube = new CubeConundrum(lines, CubeSet );
+        var cube = new CubeConundrum(lines, CubeSet);
         cube.ImportInput();
 
-        
+
         Console.WriteLine("Please choose a part (1 or 2):");
         var v = Console.ReadKey();
         while (v.KeyChar != '1' && v.KeyChar != '2')
@@ -36,6 +37,4 @@ public class Program
         Console.WriteLine("Press enter to quit");
         Console.ReadLine();
     }
-
 }
-
