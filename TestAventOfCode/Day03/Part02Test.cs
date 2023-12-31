@@ -5,14 +5,12 @@ namespace TestAventOfCode.Day03;
 [TestFixture]
 public class Part02Test
 {
-    private string[] _gameData;
-    private EngineSchematic _engineSchematic;
-
     [SetUp]
     //how to build the setup for nUnit test
     public void Setup()
     {
-        _gameData = new[] {        
+        _gameData = new[]
+        {
             "467..114..",
             "...*......",
             "..35..633.",
@@ -22,40 +20,43 @@ public class Part02Test
             "..592.....",
             "......755.",
             "...$.*....",
-            ".664.598.." 
+            ".664.598.."
         };
         _engineSchematic = new EngineSchematic(_gameData);
     }
-    
+
+    private string[] _gameData;
+    private EngineSchematic _engineSchematic;
+
     [Test]
     public void GetSymbolesAndPosition()
     {
         var symbols = _engineSchematic.GetSymbols(@"[\*]");
-        
-        var expected = new List<Symbol>()
+
+        var expected = new List<Symbol>
         {
-            new("*",1,3),
-            new("*",4,3),
-            new("*",8,5)
+            new("*", 1, 3),
+            new("*", 4, 3),
+            new("*", 8, 5)
         };
-        CollectionAssert.AreEquivalent(expected,symbols);
+        CollectionAssert.AreEquivalent(expected, symbols);
     }
 
     [Test]
     public void GetListGearsPairs()
     {
-        var expected = new List<Tuple<int,int>>()
+        var expected = new List<Tuple<int, int>>
         {
-          Tuple.Create(467, 35)
-            ,Tuple.Create(755, 598 )
+            Tuple.Create(467, 35), Tuple.Create(755, 598)
         };
         _engineSchematic.GetNumbers();
         _engineSchematic.GetSymbols(@"[\*]");
         var result = _engineSchematic.GetGearsPairs();
 
         CollectionAssert.AreEquivalent(expected, result);
+    }
 
-    }[Test]
+    [Test]
     public void GetSumOfAllGearRatio()
     {
         _engineSchematic.GetNumbers();
@@ -63,7 +64,6 @@ public class Part02Test
         _engineSchematic.GetGearsPairs();
         var result = _engineSchematic.GetSumOfAllGearRatio();
 
-        Assert.AreEqual(467835,  result);
-
+        Assert.AreEqual(467835, result);
     }
 }

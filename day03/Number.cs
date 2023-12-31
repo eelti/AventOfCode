@@ -5,7 +5,7 @@ public class Number(int value, int rowNumber, int index)
     public int Value { get; set; } = value;
     public int RowNumber { get; set; } = rowNumber;
     public int Index { get; set; } = index;
-    public int IndexEnd { get; set; } = index + (value.ToString().Length -1);
+    public int IndexEnd { get; set; } = index + (value.ToString().Length - 1);
 
 
     public override bool Equals(object obj)

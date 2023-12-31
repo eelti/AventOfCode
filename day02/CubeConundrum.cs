@@ -4,8 +4,8 @@ namespace day02;
 
 public class CubeConundrum
 {
-    private readonly Dictionary<string, int> _cubeSet;
     private readonly string[] _cubeColor = { "red", "green", "blue" };
+    private readonly Dictionary<string, int> _cubeSet;
     public string[] _input;
 
     public CubeConundrum(string[] input, Dictionary<string, int> cubeSet)

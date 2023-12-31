@@ -5,7 +5,7 @@ public class Symbol(string value, int rowNumber, int index)
     public string Value { get; set; } = value;
     public int RowNumber { get; set; } = rowNumber;
     public int Index { get; set; } = index;
-    
+
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())

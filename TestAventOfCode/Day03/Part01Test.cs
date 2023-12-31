@@ -5,14 +5,12 @@ namespace TestAventOfCode.Day03;
 [TestFixture]
 public class Part01Test
 {
-    private string[] _gameData;
-    private EngineSchematic _engineSchematic;
-
     [SetUp]
     //how to build the setup for nUnit test
     public void Setup()
     {
-        _gameData = new[] {        
+        _gameData = new[]
+        {
             "467..114..",
             "...*......",
             "..35..633.",
@@ -22,50 +20,55 @@ public class Part01Test
             "..592.....",
             "......755.",
             "...$.*....",
-            ".664.598.." 
+            ".664.598.."
         };
         _engineSchematic = new EngineSchematic(_gameData);
     }
+
+    private string[] _gameData;
+    private EngineSchematic _engineSchematic;
+
     [Test]
     public void GetNumbersAndPosition()
     {
         var numbers = _engineSchematic.GetNumbers();
-        var expected = new List<Number>()
+        var expected = new List<Number>
         {
-            new (467,0,0),
-            new (114,0,5),
-            new (35,2,2),
-            new (633,2,6),
-            new (617,4,0),
-            new (58,5,7),
-            new (592,6,2),
-            new (755,7,6),
-            new (664,9,1),
-            new (598,9,5)               
+            new(467, 0, 0),
+            new(114, 0, 5),
+            new(35, 2, 2),
+            new(633, 2, 6),
+            new(617, 4, 0),
+            new(58, 5, 7),
+            new(592, 6, 2),
+            new(755, 7, 6),
+            new(664, 9, 1),
+            new(598, 9, 5)
         };
-        CollectionAssert.AreEquivalent(expected,numbers);
+        CollectionAssert.AreEquivalent(expected, numbers);
     }
+
     [Test]
     public void GetSymbolesAndPosition()
     {
         var symbols = _engineSchematic.GetSymbols(@"[^\w\s\d\.]");
-        
-        var expected = new List<Symbol>()
+
+        var expected = new List<Symbol>
         {
-            new("*",1,3),
-            new("#",3,6),
-            new("*",4,3),
-            new("+",5,5),
-            new("$",8,3),
-            new("*",8,5)
+            new("*", 1, 3),
+            new("#", 3, 6),
+            new("*", 4, 3),
+            new("+", 5, 5),
+            new("$", 8, 3),
+            new("*", 8, 5)
         };
-        CollectionAssert.AreEquivalent(expected,symbols);
+        CollectionAssert.AreEquivalent(expected, symbols);
     }
 
     [Test]
     public void GetListValideNumber()
     {
-        var expected = new List<int>()
+        var expected = new List<int>
         {
             467, 35, 633, 617, 592, 755, 664, 598
         };
@@ -74,8 +77,9 @@ public class Part01Test
         var result = _engineSchematic.GetValidNumbers();
 
         CollectionAssert.AreEquivalent(expected, result);
+    }
 
-    }[Test]
+    [Test]
     public void GetGetSumOfAllValidNumber()
     {
         _engineSchematic.GetNumbers();
@@ -83,7 +87,6 @@ public class Part01Test
         _engineSchematic.GetValidNumbers();
         var result = _engineSchematic.GetSumOfAllValidNumbers();
 
-        Assert.AreEqual(4361,  result);
-
+        Assert.AreEqual(4361, result);
     }
 }
