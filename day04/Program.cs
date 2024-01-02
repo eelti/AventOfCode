@@ -28,7 +28,10 @@ public class Program
         }
         else if (part == 2)
         {
-            throw new NotImplementedException();
+            Deck deck = new();
+            deck.LoadCard(Model.GameData);
+            // Act
+            solution = deck.GetGrandTotalOfWinningsCard();
         }
 
         new Clipboard().SetText(solution.ToString());
