@@ -74,7 +74,6 @@ public class Deck
         foreach (var c in Cards)
         {
             keyValuePairs.Add(new KeyValuePair<int, int>(c.CardId, WinningCard(c.CardId)));
- 
         }
         /*foreach (var cardWinning in _cardWinnings)
             keyValuePairs.Add(new KeyValuePair<int, int>(cardWinning.CardId, WinningCard(cardWinning.CardId)));

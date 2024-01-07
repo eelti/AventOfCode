@@ -1,4 +1,5 @@
-﻿using TextCopy;
+﻿using shareKernel;
+using TextCopy;
 
 namespace day04;
 
@@ -18,10 +19,11 @@ public class Program
         var part = int.Parse(v.KeyChar.ToString());
 
         var solution = 0;
+            var gameData = new Model("input.text").GameData;
         if (part == 1)
         {
             Deck deck = new();
-            deck.LoadCard(Model.GameData);
+            deck.LoadCard(gameData);
             // Act
             solution = deck.GetGrandTotal();
 
@@ -29,7 +31,7 @@ public class Program
         else if (part == 2)
         {
             Deck deck = new();
-            deck.LoadCard(Model.GameData);
+            deck.LoadCard(gameData);
             // Act
             solution = deck.GetGrandTotalOfWinningsCard();
         }
