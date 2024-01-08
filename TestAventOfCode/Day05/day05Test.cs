@@ -61,6 +61,21 @@ public class day05Test
         // Assert compare the two arrays
         Assert.That(smallestLocation, Is.EqualTo(35));
     } 
+
+    [Test]
+    public void GetSmallestLocationRef()
+    {
+        // Arrange
+        var interpreter = new Interpreter();
+        interpreter.GetSeeds(_input);
+        var model = new Model(@".\Day05\input.txt");
+
+        // Act
+        var smallestLocation = interpreter.GetSmallestLocationRef(model);
+
+        // Assert compare the two arrays
+        Assert.That(smallestLocation, Is.EqualTo(35));
+    } 
     /*Seed 79, soil 81, fertilizer 81, water 81, light 74, temperature 78, humidity 78, location 82.
 Seed 14, soil 14, fertilizer 53, water 49, light 42, temperature 42, humidity 43, location 43.
 Seed 55, soil 57, fertilizer 57, water 53, light 46, temperature 82, humidity 82, location 86.
