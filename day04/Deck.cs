@@ -58,10 +58,7 @@ public class Deck
     {
         GetMyWinningCards();
         var sum = 0;
-        foreach (var cardWinning in _cardWinnings)
-        {
-            sum += GetCardPoints(cardWinning.CardId);
-        }
+        foreach (var cardWinning in _cardWinnings) sum += GetCardPoints(cardWinning.CardId);
 
         return sum;
     }
@@ -74,6 +71,7 @@ public class Deck
         foreach (var c in Cards)
         {
             keyValuePairs.Add(new KeyValuePair<int, int>(c.CardId, WinningCard(c.CardId)));
+ 
         }
         /*foreach (var cardWinning in _cardWinnings)
             keyValuePairs.Add(new KeyValuePair<int, int>(cardWinning.CardId, WinningCard(cardWinning.CardId)));
@@ -96,41 +94,44 @@ public class Deck
         if (card == null || card.CardId > maxCardId) return;
         {
             var winning = WinningCard(card.CardId);
-            keyValuePairs.Add(new KeyValuePair<int, int>(card.CardId, winning) );
+            keyValuePairs.Add(new KeyValuePair<int, int>(card.CardId, winning));
         }
     }
 
     private int WinningCard(int cardId)
     {
-        var winning = _cardWinnings.Find(f => f.CardId == cardId)?.MyNumbers.Count??0;
+        var winning = _cardWinnings.Find(f => f.CardId == cardId)?.MyNumbers.Count ?? 0;
         return winning;
     }
 
     private CardWinning? NextCard(int cardId)
     {
-        return _cardWinnings.Find(f => f.CardId == cardId + 1);
+        var predicate = PredicateGenerator(cardId + 1);
+        return _cardWinnings.Find(predicate);
     }
 
+    private static Predicate<CardWinning> PredicateGenerator(int targetCardId)
+    {
+        return f => f.CardId == targetCardId;
+    }
     private int Loop(int kpListIndex, List<KeyValuePair<int, int>> keyValuePairs, int maxCardId)
     {
         var count = -1;
         var kpIndex = keyValuePairs.Count;
-        for (int i = kpListIndex; i < kpIndex; i++)
+        for (var i = kpListIndex; i < kpIndex; i++)
         {
             if (keyValuePairs[i].Key > maxCardId) break;
-            for (int j = 0; j < keyValuePairs[i].Value; j++)
+            for (var j = 0; j < keyValuePairs[i].Value; j++)
             {
-                var cardId = keyValuePairs[i].Key+j;
+                var cardId = keyValuePairs[i].Key + j;
                 var cardWinning = NextCard(cardId);
                 if (cardWinning != null)
-                {
-                    keyValuePairs.Add(new(cardWinning.CardId, cardWinning?.MyNumbers?.Count??0));
-                }
+                    keyValuePairs.Add(
+                        new KeyValuePair<int, int>(cardWinning.CardId, cardWinning?.MyNumbers?.Count ?? 0));
                 else
-                {
-                    FindNotWinningCard(cardId,maxCardId,keyValuePairs);
-                }
+                    FindNotWinningCard(cardId, maxCardId, keyValuePairs);
             }
+
             count++;
         }
 
