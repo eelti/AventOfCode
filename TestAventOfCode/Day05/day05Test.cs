@@ -46,6 +46,7 @@ public class day05Test
     {
         //Arrange
         var interpreter = new Interpreter();
+        var model = new Model(@".\Day05\input.txt");
         var expected = new List<SeedMapper>()
         {
             new(){Seed = 79, Soil = 81, Fertilizer = 81, Water = 81, Light = 74, Temperature = 78, Humidity = 78,Location = 82},
@@ -56,12 +57,32 @@ public class day05Test
         
         //Act
         interpreter.GetSeeds(_input);
+        interpreter.GetEachMapV3(model);
         interpreter.GetAllMap();
 
         
         //Assert
         CollectionAssert.AreEquivalent(expected, interpreter._mappers);
 
+    }
+
+
+    [Test]
+    public void GetSamllestLocationV3()
+    {
+        //Arrange
+        var interpreter = new Interpreter();
+        var model = new Model(@".\Day05\input.txt");
+        long expected = 35;
+        //Act
+        interpreter.GetSeeds(_input);
+        interpreter.GetEachMapV3(model);
+        interpreter.GetAllMap();
+        var actual = interpreter.GetSmallestLocationV3();
+
+
+        //Assert
+        Assert.AreEqual(expected, actual);
     }
 
     [Test]
@@ -143,6 +164,25 @@ Seed 13, soil 13, fertilizer 52, water 41, light 34, temperature 34, humidity 35
 
         // Assert compare the two arrays
         Assert.That(smallestLocation, Is.EqualTo(soil));
+    }
+    
+    [TestCase(79, 81)]
+    [TestCase(14, 14)]
+    [TestCase(55, 57)]
+    [TestCase(13, 13)]
+    [Test]
+    public void GetSoilV2(int seed, int soil)
+    {
+        // Arrange
+        var interpreter = new Interpreter();
+        interpreter.GetSeeds(_input);
+        var model = new Model(@".\Day05\input.txt");
+        // Act
+        interpreter.GetEachMapV3(model);
+        var expected = interpreter.GetDestination("seed-to-soil map:", seed);
+
+        // Assert compare the two arrays
+        Assert.That(expected, Is.EqualTo(soil));
     }
     
     [TestCase(81, 81)]

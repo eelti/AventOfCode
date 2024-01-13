@@ -20,6 +20,7 @@ public class Program
 
         long solution = 0;
         var gameData =  new Model(@".\input.txt");
+
         if (part == 1)
         {
             // Arrange
@@ -27,8 +28,9 @@ public class Program
             interpreter.GetSeeds(gameData.GameDataText);
 
             // Act
-            interpreter.GetSmallestLocationRef(gameData);
-            solution =  interpreter.GetSmallestLocation(interpreter.Seeds);
+            interpreter.GetEachMapV3(gameData);
+            interpreter.GetAllMap();
+            solution = interpreter.GetSmallestLocationV3();
 
         }
         else if (part == 2)

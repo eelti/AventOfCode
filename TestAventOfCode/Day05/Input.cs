@@ -40,56 +40,56 @@ public static class Input
 
             new()
             {
-                Type = "seed-to-soil map",
+                Type = "seed-to-soil map:",
                 Source = 98,
                 Destination = 50,
                 Duration = 2
             },
             new()
             {
-                Type = "seed-to-soil map",
+                Type = "seed-to-soil map:",
                 Source = 50,
                 Destination = 52,
                 Duration = 48
             },
             new()
             {
-                Type = "soil-to-fertilizer map",
+                Type = "soil-to-fertilizer map:",
                 Source = 15,
                 Destination = 0,
                 Duration = 37
             },
             new()
             {
-                Type = "soil-to-fertilizer map",
+                Type = "soil-to-fertilizer map:",
                 Source = 52,
                 Destination = 37,
                 Duration = 2
             },
             new Map()
             {
-                Type = "soil-to-fertilizer map",
+                Type = "soil-to-fertilizer map:",
                 Source = 0,
                 Destination = 39,
                 Duration = 15
             },
             new Map()
             {
-                Type = "fertilizer-to-water map",
+                Type = "fertilizer-to-water map:",
                 Source = 53,
                 Destination = 49,
                 Duration = 8
             },
             new Map()
             {
-                Type = "fertilizer-to-water map",
+                Type = "fertilizer-to-water map:",
                 Source = 11,
                 Destination = 0,
                 Duration = 42
             },
             new Map()
             {
-                Type = "fertilizer-to-water map",
+                Type = "fertilizer-to-water map:",
                 Source = 0,
                 Destination = 42,
                 Duration = 7
@@ -97,70 +97,70 @@ public static class Input
 
             new Map()
             {
-                Type = "fertilizer-to-water map",
+                Type = "fertilizer-to-water map:",
                 Source = 7,
                 Destination = 57,
                 Duration = 4
             },
             new Map()
             {
-                Type = "water-to-light map",
+                Type = "water-to-light map:",
                 Source = 18,
                 Destination = 88,
                 Duration = 7
             },
             new Map()
             {
-                Type = "water-to-light map",
+                Type = "water-to-light map:",
                 Source = 25,
                 Destination = 18,
                 Duration = 70
             },
             new Map()
             {
-                Type = "light-to-temperature map",
+                Type = "light-to-temperature map:",
                 Source = 77,
-                Destination = 23,
-                Duration = 45
+                Destination = 45,
+                Duration = 23
             },
             new Map()
             {
-                Type = "light-to-temperature map",
+                Type = "light-to-temperature map:",
                 Source = 45,
                 Destination = 81,
                 Duration = 19
             },
             new Map()
             {
-                Type = "light-to-temperature map",
+                Type = "light-to-temperature map:",
                 Source = 64,
                 Destination = 68,
                 Duration = 13
             },
             new Map()
             {
-                Type = "temperature-to-humidity map",
+                Type = "temperature-to-humidity map:",
                 Source = 69,
                 Destination = 0,
                 Duration = 1
             },
             new Map()
             {
-                Type = "temperature-to-humidity map",
+                Type = "temperature-to-humidity map:",
                 Source = 0,
                 Destination = 1,
                 Duration = 69
             },
             new Map()
             {
-                Type = "humidity-to-location map",
+                Type = "humidity-to-location map:",
                 Source = 56,
                 Destination = 60,
                 Duration = 37
             },
             new Map()
             {
-                Type = "humidity-to-location map",
+                Type = "humidity-to-location map:",
                 Source = 93,
                 Destination = 56,
                 Duration = 4

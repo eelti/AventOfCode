@@ -36,13 +36,13 @@ public partial class Interpreter
     {
         foreach (var seedMapper in _mappers)
         {
-            seedMapper.Soil = GetSoil(seedMapper.Seed);
-            seedMapper.Fertilizer = Getfertilizer(seedMapper.Soil);
-            seedMapper.Water = GetWater(seedMapper.Fertilizer);
-            seedMapper.Light = GetLight(seedMapper.Water);
-            seedMapper.Temperature = GetTemperature(seedMapper.Light);
-            seedMapper.Humidity = GetHumidity(seedMapper.Light);
-            seedMapper.Location = GetLocation(seedMapper.Humidity);
+            seedMapper.Soil = GetDestination(List[0], seedMapper.Seed);
+            seedMapper.Fertilizer = GetDestination(List[1], seedMapper.Soil);
+            seedMapper.Water = GetDestination(List[2], seedMapper.Fertilizer);
+            seedMapper.Light = GetDestination(List[3],  seedMapper.Water);
+            seedMapper.Temperature = GetDestination(List[4], seedMapper.Light);
+            seedMapper.Humidity =GetDestination(List[5], seedMapper.Temperature);
+            seedMapper.Location = GetDestination(List[6], seedMapper.Humidity);
         }
     }
 
@@ -208,6 +208,11 @@ public partial class Interpreter
         actualMap++;
     }
 
+    public long GetSmallestLocationV3()
+    {
+            return _mappers.Min(m => m.Location);
+    }
+
     public long GetSmallestLocationRef(Model model)
     {
         GetNextMap(model);
@@ -249,6 +254,15 @@ public partial class Interpreter
         }
 
         return smallestLocation;
+    }
+
+    public long GetDestination(string type, long source)
+    {
+        var maps = Maps.Where(w => w.Type.Equals(type)).ToList();
+        return maps.Where(w => source >= w.Source &
+                                              source <= w.Source + w.Duration)
+            .Select(s => s.Destination - s.Source + source)
+            .DefaultIfEmpty(source).First();
     }
 
     public long GetSoil(long seed)
