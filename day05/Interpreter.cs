@@ -31,6 +31,44 @@ public class Interpreter
           _mappers.Add(new SeedMapper() { Seed = seed });
         }
     }
+    public async void GetSeedsPart2(string input)
+    {
+
+        // Regex: Matches "seeds: ", then any characters (except new line), optionally ending with a carriage return.
+        var seeds = Regex.Match(input, @"seeds: (.*)(\r)?").Groups[1].Value.Split(" ")
+            .Select(s => long.Parse(s)).ToList();
+       // Seeds = new();
+        //split seeds in batch of 25 and loop in parallel
+        /*Seeds.AsParallel()
+            .ForAll(seed =>
+            {
+                for (int j = 0; j < seed + 1; j++)
+                {
+                    lock (Seeds)
+                    {
+                        Seeds.Add(seed + j);
+                    }
+                }
+            });*/
+        
+        for (int i = 0; i < seeds.Count; i++)
+        {
+            for (int j = 0; j < seeds[i + 1]; j++) _mappers.Add(new SeedMapper() { Seed = seeds[i]+j }); //Seeds.Add(seeds[i]+j);
+            i++;
+        }
+        
+        /*
+        //How to make this code run faster by running in parallel but make sure is works with long
+        //run Async
+        
+        foreach (var seed in Seeds)
+        {
+          _mappers.Add(new SeedMapper() { Seed = seed });
+        }
+        //split seeds in batch of 25 and loop in parallel
+        */
+        
+    }
 
     public void GetAllMap()
     {

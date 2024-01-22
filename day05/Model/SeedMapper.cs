@@ -2,6 +2,7 @@
 {
     public class SeedMapper
     {
+        public Guid Id { get; set; }
         public long Seed { get; set; }
         public long Soil { get; set; }
         public long Fertilizer { get; set; }

@@ -84,6 +84,22 @@ public class day05Test
         //Assert
         Assert.AreEqual(expected, actual);
     }
+    [Test]
+    public void GetSamllestLocationPart2()
+    {
+        //Arrange
+        var interpreter = new Interpreter();
+        var model = new Model(@".\Day05\input.txt");
+        long expected = 46;
+        //Act
+        interpreter.GetSeedsPart2(_input);
+        interpreter.GetEachMapV3(model);
+        interpreter.GetAllMap();
+        var actual = interpreter.GetSmallestLocationV3();
+
+        //Assert
+        Assert.AreEqual(expected, actual);
+    }
 
     [Test]
     public void TestGetEachMapV3()

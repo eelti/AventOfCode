@@ -1,4 +1,5 @@
-﻿using shareKernel;
+﻿using System.Diagnostics;
+using shareKernel;
 using TextCopy;
 
 namespace day05;
@@ -35,10 +36,20 @@ public class Program
         }
         else if (part == 2)
         {
-            /*Deck deck = new();
-            deck.LoadCard(gameData);
+            // Arrange
+            //create timer to time how it take to the next line
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            var interpreter = new InterpreterV2(@".\input.txt");
+            stopwatch.Stop();
+            //no second
+            Console.WriteLine($"Time taken: {stopwatch.Elapsed.TotalSeconds} seconds");
+
             // Act
-            solution = deck.GetGrandTotalOfWinningsCard();*/
+            /*interpreter.GetEachMapV3(gameData);
+            interpreter.GetAllMap();
+            solution = interpreter.GetSmallestLocationV3();*/
+
         }
 
         new Clipboard().SetText(solution.ToString());

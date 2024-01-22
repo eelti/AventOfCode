@@ -1,5 +1,6 @@
 ﻿public class Map
 {
+    public Guid Id { get; set; }
     public string Type { get; set; }
     public long Source { get; set; }
     public long Destination { get; set; }
